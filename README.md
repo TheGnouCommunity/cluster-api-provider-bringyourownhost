@@ -44,7 +44,7 @@ __BYOH__ is a Cluster API Infrastructure Provider for already-provisioned hosts 
 
 - Native Kubernetes manifests and API
 - Support for single and multi-node control plane clusters
-- Support already provisioned Linux VMs with Ubuntu 20.04
+- Support already provisioned Linux VMs with Ubuntu 20.04 or 22.04
 
 ## Getting Started
 Check out the [getting_started](https://github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/blob/main/docs/getting_started.md) guide for launching a BYOH workload cluster
@@ -94,6 +94,7 @@ If someone wants to implement their own installer controller then they need to f
 | Operating System  | Architecture  | Kubernetes v1.24.* | Kubernetes v1.25.* | Kubernetes v1.26.* |
 | ------------------|---------------|:------------------:|:------------------:|:------------------:|
 | Ubuntu 20.04.*    | amd64         |         ✓          |         ✓          |         ✓          |
+| Ubuntu 22.04.*    | amd64         |         ✓          |         ✓          |         ✓          |
 
 **NOTE:**  The '*' in OS means that all Ubuntu 20.04 patches are supported.
 

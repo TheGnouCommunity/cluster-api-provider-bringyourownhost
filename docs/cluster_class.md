@@ -52,7 +52,7 @@ spec:
       schema:
         openAPIV3Schema:
           type: string
-          default: "https://projects.registry.vmware.com/cluster_api_provider_bringyourownhost"
+          default: "https://docker.io/boulc/cluster-api-byoh-controller"
     - name: controlPlaneIpAddr
       required: true
       schema:
@@ -130,7 +130,7 @@ spec:
       replicas: 1
     variables:
       - name: bundleLookupBaseRegistry
-        value: "projects.registry.vmware.com/cluster_api_provider_bringyourownhost"
+        value: "docker.io/boulc/cluster-api-byoh-controller"
       - name: controlPlaneIpAddr
         value: ${CONTROL_PLANE_ENDPOINT_IP}
       - name: kubeVipPodManifest

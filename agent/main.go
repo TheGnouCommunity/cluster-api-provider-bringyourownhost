@@ -16,12 +16,12 @@ import (
 
 	"github.com/go-logr/logr"
 	pflag "github.com/spf13/pflag"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/agent/cloudinit"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/agent/reconciler"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/agent/registration"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/agent/version"
-	infrastructurev1beta1 "github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/apis/infrastructure/v1beta1"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/feature"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent/cloudinit"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent/reconciler"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent/registration"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent/version"
+	infrastructurev1beta1 "github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/apis/infrastructure/v1beta1"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/feature"
 	certv1 "k8s.io/api/certificates/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/fields"
@@ -38,7 +38,8 @@ import (
 // labelFlags is a flag that holds a map of label key values.
 // One or more key value pairs can be passed using the same flag
 // The following example sets labelFlags with two items:
-//     -label "key1=value1" -label "key2=value2"
+//
+//	-label "key1=value1" -label "key2=value2"
 type labelFlags map[string]string
 
 // String implements flag.Value interface
@@ -51,7 +52,7 @@ func (l *labelFlags) String() string {
 }
 
 // Set implements flag.Value interface
-//nolint: gomnd
+// nolint: gomnd
 func (l *labelFlags) Set(value string) error {
 	// account for comma-separated key-value pairs in a single invocation
 	if len(strings.Split(value, ",")) > 1 {

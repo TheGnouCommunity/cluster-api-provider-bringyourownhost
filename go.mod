@@ -1,4 +1,4 @@
-module github.com/vmware-tanzu/cluster-api-provider-bringyourownhost
+module github.com/thegnoucommunity/cluster-api-provider-bringyourownhost
 
 go 1.20
 

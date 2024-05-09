@@ -89,7 +89,7 @@ if ! command -v imgpkg >>/dev/null; then
 		dl_bin="curl -s -L"
 	fi
 	
-	$dl_bin github.com/vmware-tanzu/carvel-imgpkg/releases/download/$IMGPKG_VERSION/imgpkg-linux-$ARCH > /tmp/imgpkg
+	$dl_bin github.com/thegnoucommunity/carvel-imgpkg/releases/download/$IMGPKG_VERSION/imgpkg-linux-$ARCH > /tmp/imgpkg
 	mv /tmp/imgpkg /usr/local/bin/imgpkg
 	chmod +x /usr/local/bin/imgpkg
 fi

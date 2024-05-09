@@ -21,9 +21,9 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	infrastructurev1beta1 "github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/apis/infrastructure/v1beta1"
-	controllers "github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/controllers/infrastructure"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/test/builder"
+	infrastructurev1beta1 "github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/apis/infrastructure/v1beta1"
+	controllers "github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/controllers/infrastructure"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/test/builder"
 
 	//+kubebuilder:scaffold:imports
 
@@ -109,7 +109,7 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 
 	byoCluster = builder.ByoCluster(defaultNamespace, defaultClusterName).
-		WithBundleBaseRegistry("projects.registry.vmware.com/cluster_api_provider_bringyourownhost").
+		WithBundleBaseRegistry("docker.io/thegnoucommunity/cluster-api-byoh-bundle").
 		WithBundleTag("1.0").
 		Build()
 	Expect(k8sManager.GetClient().Create(context.Background(), byoCluster)).Should(Succeed())

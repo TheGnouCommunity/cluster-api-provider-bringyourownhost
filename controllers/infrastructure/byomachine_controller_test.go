@@ -10,10 +10,10 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	infrastructurev1beta1 "github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/apis/infrastructure/v1beta1"
-	controllers "github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/controllers/infrastructure"
-	"github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/test/builder"
-	eventutils "github.com/vmware-tanzu/cluster-api-provider-bringyourownhost/test/utils/events"
+	infrastructurev1beta1 "github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/apis/infrastructure/v1beta1"
+	controllers "github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/controllers/infrastructure"
+	"github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/test/builder"
+	eventutils "github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/test/utils/events"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes/scheme"
@@ -65,7 +65,7 @@ var _ = Describe("Controllers/ByomachineController", func() {
 		byoMachineLookupKey = types.NamespacedName{Name: byoMachine.Name, Namespace: byoMachine.Namespace}
 
 		k8sInstallerConfigTemplate = builder.K8sInstallerConfigTemplate(defaultNamespace, defaultK8sInstallerConfigTemplateName).
-			WithBundleRepo("projects.registry.vmware.com/cluster_api_provider_bringyourownhost").
+			WithBundleRepo("docker.io/thegnoucommunity/cluster-api-byoh-bundle").
 			WithBundleType("k8s").
 			Build()
 		Expect(k8sClientUncached.Create(ctx, k8sInstallerConfigTemplate)).Should(Succeed())
@@ -425,7 +425,7 @@ var _ = Describe("Controllers/ByomachineController", func() {
 					BeforeEach(func() {
 						k8sInstallerConfig = builder.K8sInstallerConfig(defaultNamespace, "").
 							WithName(byoMachine.Name).
-							WithBundleRepo("projects.registry.vmware.com/cluster_api_provider_bringyourownhost").
+							WithBundleRepo("docker.io/thegnoucommunity/cluster-api-byoh-bundle").
 							WithBundleType("k8s").
 							Build()
 						Expect(k8sClientUncached.Create(ctx, k8sInstallerConfig)).Should(Succeed())

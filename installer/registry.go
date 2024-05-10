@@ -110,52 +110,47 @@ func (r *registry) ResolveOsToOsBundle(os string) string {
 func GetSupportedRegistry() registry {
 	reg := newRegistry()
 
-	{
-		// Ubuntu
-
-		// BYOH Bundle Repository. Associate bundle with installer
-		linuxDistroUbuntu20_04 := "Ubuntu_20.04.1_x86-64"
-		reg.AddBundleInstaller(linuxDistroUbuntu20_04, "v1.24.*")
-		reg.AddBundleInstaller(linuxDistroUbuntu20_04, "v1.25.*")
-		reg.AddBundleInstaller(linuxDistroUbuntu20_04, "v1.26.*")
-
-		/*
-		 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
-		 */
-
-		// Match any patch version of the specified Major & Minor K8s version
-		reg.AddK8sFilter("v1.24.*")
-		reg.AddK8sFilter("v1.25.*")
-		reg.AddK8sFilter("v1.26.*")
-
-		// Match concrete os version to repository os version
-		reg.AddOsFilter("Ubuntu_20.04.*_x86-64", linuxDistroUbuntu20_04)
-
-		linuxDistroUbuntu22_04 := "Ubuntu_22.04.1_LTS_x86-64"
-		reg.AddBundleInstaller(linuxDistroUbuntu22_04, "v1.24.*")
-		reg.AddBundleInstaller(linuxDistroUbuntu22_04, "v1.25.*")
-		reg.AddBundleInstaller(linuxDistroUbuntu22_04, "v1.26.*")
-
-		/*
-		 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
-		 */
-
-		// Match any patch version of the specified Major & Minor K8s version
-		reg.AddK8sFilter("v1.24.*")
-		reg.AddK8sFilter("v1.25.*")
-		reg.AddK8sFilter("v1.26.*")
-
-		// Match concrete os version to repository os version
-		reg.AddOsFilter("Ubuntu_22.04.*_LTS_x86-64", linuxDistroUbuntu22_04)
-
-		/*
-		 * PLACEHOLDER - POINT MORE DISTRO VERSIONS
-		 */
-	}
-
-	/*
-	 * PLACEHOLDER - ADD MORE OS HERE
-	 */
+	// Ubuntu
+	reg.AddUbuntu20_04()
+	reg.AddUbuntu22_04()
 
 	return reg
+}
+
+func (r *registry) AddUbuntu20_04() {
+
+	// BYOH Bundle Repository. Associate bundle with installer
+	linuxDistro := "Ubuntu_20.04.1_x86-64"
+	r.AddBundleInstaller(linuxDistro, "v1.24.*")
+	r.AddBundleInstaller(linuxDistro, "v1.25.*")
+	r.AddBundleInstaller(linuxDistro, "v1.26.*")
+
+	/*
+	 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
+	 */
+
+	// Match any patch version of the specified Major & Minor K8s version
+	r.AddK8sFilter("v1.24.*")
+	r.AddK8sFilter("v1.25.*")
+	r.AddK8sFilter("v1.26.*")
+
+	// Match concrete os version to repository os version
+	r.AddOsFilter("Ubuntu_20.04.*_x86-64", linuxDistro)
+}
+
+func (r *registry) AddUbuntu22_04() {
+
+	// BYOH Bundle Repository. Associate bundle with installer
+	linuxDistro := "Ubuntu_22.04_x86-64"
+	r.AddBundleInstaller(linuxDistro, "v1.29.*")
+
+	/*
+	 * PLACEHOLDER - ADD MORE K8S VERSIONS HERE
+	 */
+
+	// Match any patch version of the specified Major & Minor K8s version
+	r.AddK8sFilter("v1.29.*")
+
+	// Match concrete os version to repository os version
+	r.AddOsFilter("Ubuntu_22.04.*_x86-64", linuxDistro)
 }

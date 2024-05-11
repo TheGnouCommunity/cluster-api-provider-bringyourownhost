@@ -10,19 +10,14 @@ import (
 	"html/template"
 )
 
-const (
-	// ImgpkgVersion defines the imgpkg version that will be installed on host if imgpkg is not already installed
-	ImgpkgVersion = "v0.36.4"
-)
-
-// Ubuntu20_04Installer represent the installer implementation for ubunto20.04.* os distribution
-type Ubuntu20_04Installer struct {
+// Ubuntu20_04_K8SInstaller represent the installer implementation for ubuntu20.04.* os distribution
+type Ubuntu20_04_K8SInstaller struct {
 	install   string
 	uninstall string
 }
 
-// NewUbuntu20_04Installer will return new Ubuntu20_04Installer instance
-func NewUbuntu20_04Installer(ctx context.Context, arch, bundleAddrs string) (*Ubuntu20_04Installer, error) {
+// NewUbuntu20_04_K8SInstaller will return new Ubuntu20_04_K8SInstaller instance
+func NewUbuntu20_04_K8SInstaller(ctx context.Context, arch, bundleAddrs string) (*Ubuntu20_04_K8SInstaller, error) {
 	parseFn := func(script string) (string, error) {
 		parser, err := template.New("parser").Parse(script)
 		if err != nil {
@@ -30,9 +25,10 @@ func NewUbuntu20_04Installer(ctx context.Context, arch, bundleAddrs string) (*Ub
 		}
 		var tpl bytes.Buffer
 		if err = parser.Execute(&tpl, map[string]string{
-			"BundleAddrs":        bundleAddrs,
-			"Arch":               arch,
-			"ImgpkgVersion":      ImgpkgVersion,
+			"BundleAddrs": bundleAddrs,
+			"Arch":        arch,
+			// ImgpkgVersion defines the imgpkg version that will be installed on host if imgpkg is not already installed
+			"ImgpkgVersion":      "v0.36.4",
 			"BundleDownloadPath": "{{.BundleDownloadPath}}",
 		}); err != nil {
 			return "", fmt.Errorf("unable to apply install parsed template to the data object")
@@ -40,33 +36,33 @@ func NewUbuntu20_04Installer(ctx context.Context, arch, bundleAddrs string) (*Ub
 		return tpl.String(), nil
 	}
 
-	install, err := parseFn(DoUbuntu20_4K8s1_22)
+	install, err := parseFn(DoUbuntu20_04_K8S)
 	if err != nil {
 		return nil, err
 	}
-	uninstall, err := parseFn(UndoUbuntu20_4K8s1_22)
+	uninstall, err := parseFn(UndoUbuntu20_04_K8S)
 	if err != nil {
 		return nil, err
 	}
-	return &Ubuntu20_04Installer{
+	return &Ubuntu20_04_K8SInstaller{
 		install:   install,
 		uninstall: uninstall,
 	}, nil
 }
 
 // Install will return k8s install script
-func (s *Ubuntu20_04Installer) Install() string {
+func (s *Ubuntu20_04_K8SInstaller) Install() string {
 	return s.install
 }
 
 // Uninstall will return k8s uninstall script
-func (s *Ubuntu20_04Installer) Uninstall() string {
+func (s *Ubuntu20_04_K8SInstaller) Uninstall() string {
 	return s.uninstall
 }
 
 // contains the installation and uninstallation steps for the supported os and k8s
 var (
-	DoUbuntu20_4K8s1_22 = `
+	DoUbuntu20_04_K8S = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
@@ -89,7 +85,7 @@ if ! command -v imgpkg >>/dev/null; then
 		dl_bin="curl -s -L"
 	fi
 	
-	$dl_bin github.com/thegnoucommunity/carvel-imgpkg/releases/download/$IMGPKG_VERSION/imgpkg-linux-$ARCH > /tmp/imgpkg
+	$dl_bin github.com/carvel-dev/imgpkg/releases/download/$IMGPKG_VERSION/imgpkg-linux-$ARCH > /tmp/imgpkg
 	mv /tmp/imgpkg /usr/local/bin/imgpkg
 	chmod +x /usr/local/bin/imgpkg
 fi
@@ -124,7 +120,7 @@ tar -C / -xvf "$BUNDLE_PATH/containerd.tar"
 ## starting containerd service
 systemctl daemon-reload && systemctl enable containerd && systemctl start containerd`
 
-	UndoUbuntu20_4K8s1_22 = `
+	UndoUbuntu20_04_K8S = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}

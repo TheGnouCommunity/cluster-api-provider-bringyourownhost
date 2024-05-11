@@ -221,7 +221,7 @@ The current list of supported tuples of OS, kubernetes Version, BYOH Bundle Name
 An example output looks like:
 
 The corresponding bundles (particular to a patch version) should be pushed to the OCI registry of choice
-By default, BYOH uses docker.io/boulc/cluster-api-byoh-controller
+By default, BYOH uses docker.io/thegnoucommunity/cluster-api-byoh-bundles
 
 Note: It may happen that a specific patch version of a k8s minor release is not available in the OCI registry
 
@@ -234,17 +234,22 @@ Note: It may happen that a specific patch version of a k8s minor release is not 
     <tr>
         <td>Ubuntu_20.04.*_x86-64</td>
         <td>v1.24.*</td>
-        <td>byoh-bundle-ubuntu_20.04.1_x86-64_k8s:v1.24.*</td>
+        <td>ubuntu_20.04.1_x86-64_k8s-v1.24.*</td>
     </tr>
     <tr>
         <td>Ubuntu_20.04.*_x86-64</td>
         <td>v1.25.*</td>
-        <td>byoh-bundle-ubuntu_20.04.1_x86-64_k8s:v1.25.*</td>
+        <td>ubuntu_20.04.1_x86-64_k8s-v1.25.*</td>
     </tr>
-        <tr>
+    <tr>
         <td>Ubuntu_20.04.*_x86-64</td>
         <td>v1.26.*</td>
-        <td>byoh-bundle-ubuntu_20.04.1_x86-64_k8s:v1.26.*</td>
+        <td>ubuntu_20.04.1_x86-64_k8s-v1.26.*</td>
+    </tr>
+    <tr>
+        <td>Ubuntu_22.04.*_x86-64</td>
+        <td>v1.29.*</td>
+        <td>ubuntu_22.04_x86-64_k8s-v1.29.*</td>
     </tr>
 </table>
 The '*' in OS means that all Ubuntu 20.04 patches will be handled by this BYOH bundle.

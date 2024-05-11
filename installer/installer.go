@@ -66,5 +66,10 @@ func NewInstaller(ctx context.Context, osDist, arch, k8sVersion string, download
 	osbundle := reg.ResolveOsToOsBundle(osArch)
 	addrs := downloader.GetBundleAddr(osbundle, k8sVersion)
 
-	return algo.NewUbuntu20_04Installer(ctx, arch, addrs)
+	// Legacy logic, keep as-is until EOL
+	if osbundle == "Ubuntu_20.04.1_x86-64" {
+		return algo.NewUbuntu20_04_K8SInstaller(ctx, arch, addrs)
+	}
+
+	return algo.NewUbuntuK8SInstaller(ctx, osbundle, arch, addrs)
 }

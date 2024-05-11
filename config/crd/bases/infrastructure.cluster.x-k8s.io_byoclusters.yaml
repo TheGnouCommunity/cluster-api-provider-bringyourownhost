@@ -33,7 +33,7 @@ spec:
               description: ByoClusterSpec defines the desired state of ByoCluster
               properties:
                 bundleLookupBaseRegistry:
-                  description: BundleLookupBaseRegistry is the base Registry URL that is used for pulling byoh bundle images, if not set, the default will be set to https://docker.io/boulc/cluster-api-byoh-controller
+                  description: BundleLookupBaseRegistry is the base Registry URL that is used for pulling byoh bundle images, if not set, the default will be set to https://docker.io/thegnoucommunity/cluster-api-byoh-bundles
                   type: string
                 controlPlaneEndpoint:
                   description: ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.

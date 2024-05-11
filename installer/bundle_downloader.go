@@ -65,7 +65,7 @@ func (bd *bundleDownloader) GetBundleDirPath(k8sVersion string) string {
 
 // GetBundleName returns the name of the bundle in normalized format.
 func GetBundleName(normalizedOsVersion string) string {
-	return strings.ToLower(fmt.Sprintf("byoh-bundle-%s_k8s", normalizedOsVersion))
+	return strings.ToLower(fmt.Sprintf("%s_k8s", normalizedOsVersion))
 }
 
 // getBundlePathWithRepo returns the path
@@ -75,7 +75,7 @@ func (bd *bundleDownloader) getBundlePathWithRepo() string {
 
 // GetBundleAddr returns the exact address to the bundle in the repo.
 func (bd *bundleDownloader) GetBundleAddr(normalizedOsVersion, k8sVersion string) string {
-	return fmt.Sprintf("%s/%s:%s", bd.repoAddr, GetBundleName(normalizedOsVersion), k8sVersion)
+	return fmt.Sprintf("%s/%s-%s", bd.repoAddr, GetBundleName(normalizedOsVersion), k8sVersion)
 }
 
 // checkDirExist checks if a dirrectory exists.

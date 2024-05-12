@@ -30,6 +30,7 @@ management.
 __BYOH__ is a Cluster API Infrastructure Provider for already-provisioned hosts running Linux. This provider allows operators to adopt Cluster API for deploying and managing kubernetes nodes without also having to adopt a specific infrastructure service. This enables users to decouple kubernetes node provisioning from host and infrastructure provisioning.
 
 ## BYOH Glossary
+
 **Host** - A host is a running computer system. It could be physical or virtual. It has a kernel and some base operating system
 
 **BYO Host** - A Linux host provisioned and managed outside of Cluster API
@@ -47,7 +48,8 @@ __BYOH__ is a Cluster API Infrastructure Provider for already-provisioned hosts 
 - Support already provisioned Linux VMs with Ubuntu 20.04 or 22.04
 
 ## Getting Started
-Check out the [getting_started](https://github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/blob/main/docs/getting_started.md) guide for launching a BYOH workload cluster
+
+Check out the [getting started](https://github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/blob/main/docs/getting_started.md) guide for launching a BYOH workload cluster.
 
 ## Community, discussion, contribution, and support
 
@@ -57,7 +59,7 @@ If you have questions or want to get the latest project news, you can connect wi
 - Chat with us on the Kubernetes [Slack](http://slack.k8s.io/) in the [#cluster-api](https://kubernetes.slack.com/archives/C8TSNPY4T) channel
 - Subscribe to the [SIG Cluster Lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle) Google Group for access to documents and calendars
 - Join our Cluster API Provider for BringYourOwnHost working group sessions where we share the latest project news, demos, answer questions, and triage issues
-    - Weekly on Wednesdays @ 1:30PM Indian Standard Time on [Zoom](https://VMware.zoom.us/j/94476574480?pwd=WGYzOXBoL1VsVnBXK3c5TWd1bG5SZz09) - [convert to your timezone](https://dateful.com/time-zone-converter?t=13:30&tz=IST)
+    - Weekly on Wednesdays @ 1:30PM Indian Standard Time on [Zoom](https://VMware.zoom.us/j/94476574480?pwd=WGYzOXBoL1VsVnBXK3c5TWd1bG5SZz09) - [Convert to your timezone](https://dateful.com/time-zone-converter?t=13:30&tz=IST)
     - Previous meetings: \[ [notes](https://docs.google.com/document/d/1T-3_eskC_HCtXLh3PA8y--mgO-AIajZfevcnYuno6JM/edit#heading=h.y186zgz0eh6e) | [recordings](https://www.youtube.com/playlist?list=PLHbHoGHbooH41L5P-tIK6QqhILdEI9yBK) \]
 
 Pull Requests and feedback on issues are very welcome!
@@ -81,6 +83,7 @@ Check out the [developer guide](./docs/local_dev.md) for launching a BYOH cluste
 More about development and contributing practices can be found in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 ## Implement Custom Installer controller
+
 An installer controller is responsible to provide the installation and uninstallation scripts for k8s dependencies, prerequisites and components on each `BYOHost`.  
 If someone wants to implement their own installer controller then they need to follow the contract defined in [installer](./docs/installer.md) doc.
 
@@ -91,10 +94,11 @@ If someone wants to implement their own installer controller then they need to f
 - BYOH is currently compatible wth Cluster API v1beta1 (v1.0)
 
 ## Supported OS and Kubernetes versions
-| Operating System  | Architecture  | Kubernetes v1.24.* | Kubernetes v1.25.* | Kubernetes v1.26.* |
-| ------------------|---------------|:------------------:|:------------------:|:------------------:|
-| Ubuntu 20.04.*    | amd64         |         ✓          |         ✓          |         ✓          |
-| Ubuntu 22.04.*    | amd64         |         ✓          |         ✓          |         ✓          |
+
+| Operating System  | Architecture  | Kubernetes v1.24.* | Kubernetes v1.25.* | Kubernetes v1.26.* | Kubernetes v1.29.* |
+| ------------------|---------------|:------------------:|:------------------:|:------------------:|:------------------:|
+| Ubuntu 20.04.*    | amd64         |         ✓         |         ✓         |         ✓          |                    |
+| Ubuntu 22.04.*    | amd64         |                    |                    |                    |        ✓          |
 
 **NOTE:**  The '*' in OS means that all Ubuntu 20.04 patches are supported.
 

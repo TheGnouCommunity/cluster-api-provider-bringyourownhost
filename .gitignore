@@ -41,3 +41,6 @@ _artifacts
 
 # macOS Desktop Service Store files
 .DS_Store
+
+# bundles
+byoh-ingredients-download

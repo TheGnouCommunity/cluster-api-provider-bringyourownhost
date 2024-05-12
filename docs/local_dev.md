@@ -267,17 +267,39 @@ sudo apt-get install socat ebtables ethtool conntrack
 ```
 
 ## Creating a BYOH Bundle
-### Kubernetes Ingredients
-Optional. This step describes downloading kubernetes host components for Debian.
-```shell
-# Build docker image
-(cd installer/bundle_builder/ingredients/deb/ && docker build -t byoh-ingredients-deb .)
 
-# Create a directory for the ingredients and download to it
-(mkdir -p byoh-ingredients-download && docker run --rm -v `pwd`/byoh-ingredients-download:/ingredients byoh-ingredients-deb)
+This step describes downloading kubernetes host components for various distribution (Debian/Ubuntu).
+The specified below BYOH Bundle name must match one of the [Supported OS and kubernetes BYOH bundle names](##supported-OS-and-kubernetes)
+
+### Ubuntu 20.04
+
+#### Kubernetes Ingredients
+
+Build docker image
+
+```shell
+(cd installer/bundle_builder/ubuntu && \
+ docker build --build-arg BASE_IMAGE=ubuntu:20.04 \
+              -t byoh-ingredients-ubuntu:20.04 \
+              -f Dockerfile.downloader \
+              -t byoh-ingredients-ubuntu-20.04 \
+              20.04/x86-64/k8s/ingredients)
 ```
-### Custom Ingredients
+
+Create a directory for the ingredients and download to it
+
+```shell
+(rm -rf byoh-ingredients-download/ && \
+ mkdir byoh-ingredients-download && \
+ docker run --rm \
+            -v `pwd`/byoh-ingredients-download:/ingredients \
+            byoh-ingredients-ubuntu-20.04)
+```
+
+#### Custom Ingredients
+
 This step describes providing custom kubernetes host components. They can be copied to `byoh-ingredients-download`. Files must match the following globs:
+
 ```shell
 *containerd*.tar
 *kubeadm*.deb
@@ -287,25 +309,106 @@ This step describes providing custom kubernetes host components. They can be cop
 *kubernetes-cni*.deb
 ```
 
-## Building a BYOH Bundle
+#### Building a BYOH Bundle
+
+Build docker image
+
 ```shell
-#Build docker image
-(cd installer/bundle_builder/ && docker build -t byoh-build-push-bundle .)
+(cd installer/bundle_builder/ubuntu && \
+ docker build --build-arg BASE_IMAGE=ubuntu:20.04 \
+              -t byoh-build-push-bundle-ubuntu-20.04 \
+              -f Dockerfile.builder \
+              20.04/x86-64/k8s)
 ```
 
+Build a BYOH bundle and publish it to an OCI-compliant repo
+
 ```shell
-# Build a BYOH bundle and publish it to an OCI-compliant repo
-docker run --rm -v `pwd`/byoh-ingredients-download:/ingredients --env BUILD_ONLY=0 byoh-build-push-bundle <REPO>/<BYOH Bundle name>
+docker run --rm \
+           -v `pwd`/byoh-ingredients-download:/ingredients \
+           -e BUILD_ONLY=0 \
+           byoh-build-push-bundle-ubuntu-20.04 docker.io/thegnoucommunity/cluster-api-byoh-bundle:ubuntu_20.04.1_x86-64_k8s-vx.y.z
 ```
 
-The specified above BYOH Bundle name must match one of the [Supported OS and kubernetes BYOH bundle names](##supported-OS-and-kubernetes)
+### Ubuntu 22.04
+
+#### Kubernetes Ingredients
+
+Build docker image
 
 ```shell
-# You can also build a tarball of the bundle without publishing. This will create a bundler.tar in the current directory and can be used for custom pushing
-docker run --rm -v `pwd`/byoh-ingredients-download:/ingredients -v`pwd`:/bundle --env BUILD_ONLY=1 byoh-build-push-bundle
+(cd installer/bundle_builder/ubuntu && \
+ docker build --build-arg BASE_IMAGE=ubuntu:22.04 \
+              -t byoh-ingredients-ubuntu-22.04 \
+              -f Dockerfile.downloader \
+              22.04/x86-64/k8s/ingredients)
+
+# Create a directory for the ingredients and download to it
+(rm -rf byoh-ingredients-download/ && \
+ mkdir byoh-ingredients-download && \
+ docker run --rm \
+            -v `pwd`/byoh-ingredients-download:/ingredients \
+            -e KUBERNETES_MAJOR_VERSION=1.29 \
+            -e KUBERNETES_VERSION=1.29.4-2.1 \
+            -e KUBERNETES_CNI_VERSION=1.3.0-1.1 \
+            -e CRI_TOOLS_VERSION=1.29.0-1.1 \
+            -e CONTAINERD_VERSION=1.6.31-1 \
+            byoh-ingredients-ubuntu-22.04)
 ```
 
+#### Custom Ingredients
+
+This step describes providing custom kubernetes host components. They can be copied to `byoh-ingredients-download`. Files must match the following globs:
 ```shell
-# Optionally, additional configuration can be included in the bundle by mounting a local path under /config of the container. It will be placed on top of any drop-in configuration created by the packages and tars in the bundle
-docker run --rm -v `pwd`/byoh-ingredients-download:/ingredients -v`pwd`:/bundle -v`pwd`/installer/bundle_builder/config/ubuntu/20_04/k8s/1_22 --env BUILD_ONLY=1 build-push-bundle
+*containerd.io*.deb
+*kubeadm*.deb
+*kubelet*.deb
+*kubectl*.deb
+*cri-tools*.deb
+*kubernetes-cni*.deb
+```
+
+#### Building a BYOH Bundle
+
+Build docker image
+
+```shell
+(cd installer/bundle_builder/ubuntu && \
+ docker build --build-arg BASE_IMAGE=ubuntu:22.04 \
+              -t byoh-build-push-bundle-ubuntu-22.04 \
+              -f Dockerfile.builder \
+              22.04/x86-64/k8s)
+```
+
+Build a BYOH bundle and publish it to an OCI-compliant repo
+
+```shell
+docker run --rm \
+           -v `pwd`/byoh-ingredients-download:/ingredients \
+           -e BUILD_ONLY=0 \
+           byoh-build-push-bundle-ubuntu-22.04 ubuntu_22.04_x86-64_k8s-vx.y.z docker.io/thegnoucommunity/cluster-api-byoh-bundle
+```
+
+### Other options
+
+You can also build a tarball of the bundle without publishing. This will create a bundler.tar in the current directory and can be used for custom pushing
+
+```shell
+docker run --rm \
+           -v `pwd`/byoh-ingredients-download:/ingredients \
+           -v`pwd`:/bundle \
+           -e BUILD_ONLY=1 \
+           byoh-build-push-bundle
+```
+
+Optionally, additional configuration can be included in the bundle by mounting a local path under /config of the container.
+It will be placed on top of any drop-in configuration created by the packages and tars in the bundle
+
+```shell
+docker run --rm \
+           -v `pwd`/byoh-ingredients-download:/ingredients \
+           -v`pwd`:/bundle \
+           -v`pwd`/installer/bundle_builder/config/ubuntu/20_04/k8s/extra:/config \
+           -e BUILD_ONLY=1 \
+           byoh-build-push-bundle
 ```

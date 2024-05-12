@@ -9,7 +9,7 @@ CONFIG_PATH=$2
 
 set -e
 
-rm -rf $INGREDIENTS_PATH/$3.tar
+rm -rf $INGREDIENTS_PATH/$4.tar
 
 echo Building bundle...
 
@@ -35,6 +35,6 @@ cp $CONFIG_PATH/conf.tar .
 
 echo Creating bundle tar
 tar -cvf /bundle/bundle.tar *
-cp /bundle/bundle.tar $INGREDIENTS_PATH/$3.tar
+cp /bundle/bundle.tar $INGREDIENTS_PATH/$4.tar
 
 echo Done

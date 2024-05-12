@@ -5,7 +5,7 @@
 
 set -e
 
-echo Pushing bundle "$*"
+echo Pushing bundles "$*"
 
 imgpkg push -f . -i $@
 

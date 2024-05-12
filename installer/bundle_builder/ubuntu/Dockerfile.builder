@@ -39,10 +39,10 @@ WORKDIR /bundle-builder
 COPY ingredients/*.sh ./
 RUN chmod a+x *.sh
 #Default config
-COPY ./conf/ /config/
+COPY ./conf/ /conf/
 
 RUN mkdir /ingredients && mkdir /bundle
 ENV PATH="/bundle-builder:${PATH}"
 
 WORKDIR /tmp/bundle
-ENTRYPOINT ["build-push-bundle.sh", "/ingredients", "/config"]
+ENTRYPOINT ["build-push-bundle.sh", "/ingredients", "/conf", "/scripts"]

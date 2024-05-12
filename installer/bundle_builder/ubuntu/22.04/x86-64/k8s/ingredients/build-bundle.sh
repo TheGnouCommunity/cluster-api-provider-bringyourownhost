@@ -6,10 +6,11 @@
 
 INGREDIENTS_PATH=$1
 CONFIG_PATH=$2
+SCRIPTS_PATH=$3
 
 set -e
 
-rm -rf $INGREDIENTS_PATH/$3.tar
+rm -rf $INGREDIENTS_PATH/$4.tar
 
 echo Building bundle...
 
@@ -35,6 +36,13 @@ cp $CONFIG_PATH/conf.tar .
 
 echo Creating bundle tar
 tar -cvf /bundle/bundle.tar *
-cp /bundle/bundle.tar $INGREDIENTS_PATH/$3.tar
+cp /bundle/bundle.tar $INGREDIENTS_PATH/$4.tar
+
+if [ -d $SCRIPTS_PATH ];
+then
+    echo Add scripts under well-known name
+    (cd $SCRIPTS_PATH && tar -cvf scripts.tar *)
+    cp $SCRIPTS_PATH/scripts.tar $INGREDIENTS_PATH/$4-scripts.tar
+fi
 
 echo Done

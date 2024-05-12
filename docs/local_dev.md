@@ -383,10 +383,13 @@ Build docker image
 Build a BYOH bundle and publish it to an OCI-compliant repo
 
 ```shell
-docker run --rm \
-           -v `pwd`/byoh-ingredients-download:/ingredients \
-           -e BUILD_ONLY=0 \
-           byoh-build-push-bundle-ubuntu-22.04 ubuntu_22.04_x86-64_k8s-vx.y.z docker.io/thegnoucommunity/cluster-api-byoh-bundle
+(cd installer/bundle_builder/ubuntu && \
+ docker run --rm \
+            -v `pwd`/byoh-ingredients-download:/ingredients \
+            -v `pwd`/22.04/x86-64/k8s/conf:/conf \
+            -v `pwd`/22.04/x86-64/k8s/scripts:/scripts \
+            -e BUILD_ONLY=0 \
+            byoh-build-push-bundle-ubuntu-22.04 ubuntu_22.04_x86-64_k8s-vx.y.z docker.io/thegnoucommunity/cluster-api-byoh-bundle)
 ```
 
 ### Other options

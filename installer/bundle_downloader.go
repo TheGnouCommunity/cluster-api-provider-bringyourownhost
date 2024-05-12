@@ -75,7 +75,7 @@ func (bd *bundleDownloader) getBundlePathWithRepo() string {
 
 // GetBundleAddr returns the exact address to the bundle in the repo.
 func (bd *bundleDownloader) GetBundleAddr(normalizedOsVersion, k8sVersion string) string {
-	return fmt.Sprintf("%s/%s-%s", bd.repoAddr, GetBundleName(normalizedOsVersion), k8sVersion)
+	return fmt.Sprintf("%s:%s-%s", bd.repoAddr, GetBundleName(normalizedOsVersion), k8sVersion)
 }
 
 // checkDirExist checks if a dirrectory exists.

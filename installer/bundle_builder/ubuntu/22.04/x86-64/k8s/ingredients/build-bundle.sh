@@ -36,13 +36,13 @@ cp $CONFIG_PATH/conf.tar .
 
 echo Creating bundle tar
 tar -cvf /bundle/bundle.tar *
-cp /bundle/bundle.tar $INGREDIENTS_PATH/$4.tar
+cp /bundle/bundle.tar $INGREDIENTS_PATH/bundle.tar
 
 if [ -d $SCRIPTS_PATH ];
 then
     echo Add scripts under well-known name
     (cd $SCRIPTS_PATH && tar -cvf scripts.tar *)
-    cp $SCRIPTS_PATH/scripts.tar $INGREDIENTS_PATH/$4-scripts.tar
+    cp $SCRIPTS_PATH/scripts.tar $INGREDIENTS_PATH/scripts.tar
 fi
 
 echo Done

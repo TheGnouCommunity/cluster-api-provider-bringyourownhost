@@ -415,3 +415,10 @@ docker run --rm \
            -e BUILD_ONLY=1 \
            byoh-build-push-bundle
 ```
+
+You can upload bundles manually
+
+```shell
+imgpkg push -f scripts.tar -i docker.io/thegnoucommunity/cluster-api-byoh-bundle:ubuntu_22.04_x86-64_k8s-vx.y.z-scripts
+imgpkg push -f bundle.tar -i docker.io/thegnoucommunity/cluster-api-byoh-bundle:ubuntu_22.04_x86-64_k8s-vx.y.z
+```

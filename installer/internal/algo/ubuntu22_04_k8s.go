@@ -17,7 +17,7 @@ type UbuntuK8SInstaller struct {
 }
 
 // NewUbuntuK8SInstaller will return new UbuntuK8SInstaller instance
-func NewUbuntuK8SInstaller(ctx context.Context, osbundle string, arch, bundleAddrs string) (*UbuntuK8SInstaller, error) {
+func NewUbuntuK8SInstaller(ctx context.Context, osbundle, arch, bundleAddrs string) (*UbuntuK8SInstaller, error) {
 	parseFn := func(script string) (string, error) {
 		parser, err := template.New("parser").Parse(script)
 		if err != nil {

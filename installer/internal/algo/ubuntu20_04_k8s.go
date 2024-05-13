@@ -10,14 +10,14 @@ import (
 	"html/template"
 )
 
-// Ubuntu20_04_K8SInstaller represent the installer implementation for ubuntu20.04.* os distribution
-type Ubuntu20_04_K8SInstaller struct {
+// Ubuntu20_04K8SInstaller represent the installer implementation for ubuntu20.04.* os distribution
+type Ubuntu20_04K8SInstaller struct {
 	install   string
 	uninstall string
 }
 
-// NewUbuntu20_04_K8SInstaller will return new Ubuntu20_04_K8SInstaller instance
-func NewUbuntu20_04_K8SInstaller(ctx context.Context, arch, bundleAddrs string) (*Ubuntu20_04_K8SInstaller, error) {
+// NewUbuntu20_04K8SInstaller will return new Ubuntu20_04K8SInstaller instance
+func NewUbuntu20_04K8SInstaller(ctx context.Context, arch, bundleAddrs string) (*Ubuntu20_04K8SInstaller, error) {
 	parseFn := func(script string) (string, error) {
 		parser, err := template.New("parser").Parse(script)
 		if err != nil {
@@ -36,33 +36,33 @@ func NewUbuntu20_04_K8SInstaller(ctx context.Context, arch, bundleAddrs string) 
 		return tpl.String(), nil
 	}
 
-	install, err := parseFn(DoUbuntu20_04_K8S)
+	install, err := parseFn(DoUbuntu20_04K8S)
 	if err != nil {
 		return nil, err
 	}
-	uninstall, err := parseFn(UndoUbuntu20_04_K8S)
+	uninstall, err := parseFn(UndoUbuntu20_04K8S)
 	if err != nil {
 		return nil, err
 	}
-	return &Ubuntu20_04_K8SInstaller{
+	return &Ubuntu20_04K8SInstaller{
 		install:   install,
 		uninstall: uninstall,
 	}, nil
 }
 
 // Install will return k8s install script
-func (s *Ubuntu20_04_K8SInstaller) Install() string {
+func (s *Ubuntu20_04K8SInstaller) Install() string {
 	return s.install
 }
 
 // Uninstall will return k8s uninstall script
-func (s *Ubuntu20_04_K8SInstaller) Uninstall() string {
+func (s *Ubuntu20_04K8SInstaller) Uninstall() string {
 	return s.uninstall
 }
 
 // contains the installation and uninstallation steps for the supported os and k8s
 var (
-	DoUbuntu20_04_K8S = `
+	DoUbuntu20_04K8S = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
@@ -93,7 +93,6 @@ echo "downloading bundle"
 mkdir -p $BUNDLE_PATH
 imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
 
-
 ## disable swap
 swapoff -a && sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 
@@ -119,7 +118,7 @@ tar -C / -xvf "$BUNDLE_PATH/containerd.tar"
 ## starting containerd service
 systemctl daemon-reload && systemctl enable containerd && systemctl start containerd`
 
-	UndoUbuntu20_04_K8S = `
+	UndoUbuntu20_04K8S = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}

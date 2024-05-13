@@ -11,6 +11,10 @@ on:
       - 'PROJECT'
       - 'SECURITY_CONTACTS'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 jobs:
   golangci:
     runs-on: ubuntu-20.04
@@ -24,7 +28,6 @@ jobs:
       uses: actions/checkout@v3
 
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v6
       with:
         version: v1.51.0
-        skip-go-installation: true

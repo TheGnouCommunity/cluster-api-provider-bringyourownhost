@@ -108,5 +108,6 @@ If someone wants to implement their own installer controller then they need to f
 ## BYOH in News
 - [TGIK episode on BYOH](https://www.youtube.com/watch?v=Xwm5Ka27-Io&t=2838s)
 - BYOH presented during [Cluster API Office Hours](https://www.youtube.com/watch?v=6ODMLgX-dz4&t=572s)
+<!-- markdown-link-check-disable -->
 - [BYOH on ARM](https://williamlam.com/2021/11/hybrid-x86-and-arm-kubernetes-clusters-using-tanzu-community-edition-tce-and-esxi-arm.html)
-
+<!-- markdown-link-check-enable -->

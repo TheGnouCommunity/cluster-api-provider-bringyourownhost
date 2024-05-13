@@ -69,8 +69,7 @@ BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
 BUNDLE_ADDR={{.BundleAddrs}}
 IMGPKG_VERSION={{.ImgpkgVersion}}
 ARCH={{.Arch}}
-BUNDLE_PATH=$BUNDLE_DOWNLOAD_PATH/$BUNDLE_ADDR
-
+BUNDLE_PATH=$BUNDLE_DOWNLOAD_PATH/${BUNDLE_ADDR/:/-}
 
 if ! command -v imgpkg >>/dev/null; then
 	echo "installing imgpkg"	

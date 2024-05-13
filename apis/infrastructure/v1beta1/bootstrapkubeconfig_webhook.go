@@ -66,7 +66,7 @@ func (r *BootstrapKubeconfig) ValidateUpdate(old runtime.Object) (admission.Warn
 func (r *BootstrapKubeconfig) ValidateDelete() (admission.Warnings, error) {
 	bootstrapkubeconfiglog.Info("validate delete", "name", r.Name)
 
-	return nill, nil
+	return nil, nil
 }
 
 func (r *BootstrapKubeconfig) validateAPIServer() error {

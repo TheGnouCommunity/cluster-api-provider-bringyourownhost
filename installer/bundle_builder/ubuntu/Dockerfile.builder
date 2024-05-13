@@ -27,8 +27,8 @@ RUN apt-get update \
                     curl
 
 ARG ARCH=amd64
-ARG IMGPKG_VERSION=0.42.1
-RUN curl -LOJR https://github.com/carvel-dev/imgpkg/releases/download/v$IMGPKG_VERSION/imgpkg-linux-$ARCH \
+ARG IMGPKG_VERSION=v0.42.1
+RUN curl -LOJR https://github.com/carvel-dev/imgpkg/releases/download/$IMGPKG_VERSION/imgpkg-linux-$ARCH \
  && mv imgpkg-linux-$ARCH /usr/local/bin/imgpkg \
  && chmod +x /usr/local/bin/imgpkg
 # If set to 1 bundle is built and available as bundle/bundle.tar

@@ -27,7 +27,7 @@ IMG=docker.io/thegnoucommunity/cluster-api-byoh-controller:v0.3.0 make docker-bu
    
 ```shell
 docker login -u <username> -p <password>
-docker push docker.io/thegnoucommunity/cluster-api-byoh-controller:v0.3.
+docker push docker.io/thegnoucommunity/cluster-api-byoh-controller:v0.3
 ```
 
 7. Verify and test the release artifacts. 

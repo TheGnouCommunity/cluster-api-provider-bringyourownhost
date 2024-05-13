@@ -93,7 +93,6 @@ echo "downloading bundle"
 mkdir -p $BUNDLE_PATH
 imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
 
-
 ## disable swap
 swapoff -a && sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 

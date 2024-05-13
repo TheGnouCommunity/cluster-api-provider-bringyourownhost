@@ -94,11 +94,12 @@ mkdir -p $BUNDLE_PATH
 imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH`
 
 	DoUbuntuK8S = `
-chmod +x ./$BUNDLE_PATH/install.sh
+chmod +x $BUNDLE_PATH/install.sh
 imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
 BUNDLE_PATH=$BUNDLE_PATH ./$BUNDLE_PATH/install.sh`
 
 	UndoUbuntuK8S = `
-chmod +x ./$BUNDLE_PATH/uninstall.sh
-BUNDLE_PATH=$BUNDLE_PATH ./$BUNDLE_PATH/uninstall.sh`
+chmod +x $BUNDLE_PATH/uninstall.sh
+BUNDLE_PATH=$BUNDLE_PATH ./$BUNDLE_PATH/uninstall.sh
+rm -rf $BUNDLE_PATH`
 )

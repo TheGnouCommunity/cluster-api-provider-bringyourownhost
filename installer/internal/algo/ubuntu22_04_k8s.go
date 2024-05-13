@@ -17,7 +17,7 @@ type UbuntuK8SInstaller struct {
 }
 
 // NewUbuntuK8SInstaller will return new UbuntuK8SInstaller instance
-func NewUbuntuK8SInstaller(ctx context.Context, osbundle string, arch, bundleAddrs string) (*UbuntuK8SInstaller, error) {
+func NewUbuntuK8SInstaller(ctx context.Context, osbundle, arch, bundleAddrs string) (*UbuntuK8SInstaller, error) {
 	parseFn := func(script string) (string, error) {
 		parser, err := template.New("parser").Parse(script)
 		if err != nil {
@@ -69,7 +69,7 @@ BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
 BUNDLE_ADDR={{.BundleAddrs}}
 IMGPKG_VERSION={{.ImgpkgVersion}}
 ARCH={{.Arch}}
-BUNDLE_PATH=$BUNDLE_DOWNLOAD_PATH/$BUNDLE_ADDR
+BUNDLE_PATH=$BUNDLE_DOWNLOAD_PATH/${BUNDLE_ADDR/:/-}
 
 if ! command -v imgpkg >>/dev/null; then
 	echo "installing imgpkg"	
@@ -90,7 +90,7 @@ if ! command -v imgpkg >>/dev/null; then
 fi
 
 echo "downloading bundle"
-mkdir -p $BUNDLE_PATH
+mkdir -p $c
 imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH`
 
 	DoUbuntuK8S = `

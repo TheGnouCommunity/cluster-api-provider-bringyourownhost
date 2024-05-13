@@ -13,6 +13,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // log is for logging in this package.
@@ -32,18 +33,18 @@ func (r *BootstrapKubeconfig) SetupWebhookWithManager(mgr ctrl.Manager) error {
 var _ webhook.Validator = &BootstrapKubeconfig{}
 
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
-func (r *BootstrapKubeconfig) ValidateCreate() error {
+func (r *BootstrapKubeconfig) ValidateCreate() (admission.Warnings, error) {
 	bootstrapkubeconfiglog.Info("validate create", "name", r.Name)
 
 	if err := r.validateAPIServer(); err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := r.validateCAData(); err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return nil, nil
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type

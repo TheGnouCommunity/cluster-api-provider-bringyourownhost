@@ -103,7 +103,7 @@ var _ = BeforeSuite(func() {
 	dockerClient, err = dClient.NewClientWithOpts(dClient.FromEnv, dClient.WithAPIVersionNegotiation())
 	Expect(err).NotTo(HaveOccurred())
 
-	pathToHostAgentBinary, err = gexec.Build("github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent")
+	_, _ = gexec.Build("github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent")
 	pathToHostAgentBinary, err = gexec.Build("github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/agent")
 	Expect(err).NotTo(HaveOccurred())
 

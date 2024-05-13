@@ -36,11 +36,11 @@ func NewUbuntu20_04K8SInstaller(ctx context.Context, arch, bundleAddrs string) (
 		return tpl.String(), nil
 	}
 
-	install, err := parseFn(DoUbuntu20_04_K8S)
+	install, err := parseFn(DoUbuntu20_04K8S)
 	if err != nil {
 		return nil, err
 	}
-	uninstall, err := parseFn(UndoUbuntu20_04_K8S)
+	uninstall, err := parseFn(UndoUbuntu20_04K8S)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (s *Ubuntu20_04K8SInstaller) Uninstall() string {
 
 // contains the installation and uninstallation steps for the supported os and k8s
 var (
-	DoUbuntu20_04_K8S = `
+	DoUbuntu20_04K8S = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
@@ -118,7 +118,7 @@ tar -C / -xvf "$BUNDLE_PATH/containerd.tar"
 ## starting containerd service
 systemctl daemon-reload && systemctl enable containerd && systemctl start containerd`
 
-	UndoUbuntu20_04_K8S = `
+	UndoUbuntu20_04K8S = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}

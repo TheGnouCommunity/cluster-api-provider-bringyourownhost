@@ -123,7 +123,6 @@ func GetSupportedRegistry() registry {
 }
 
 func (r *registry) AddUbuntu20_04() {
-
 	// BYOH Bundle Repository. Associate bundle with installer
 	linuxDistro := Ubuntu20_04_LinuxDistro
 	r.AddBundleInstaller(linuxDistro, "v1.24.*")
@@ -144,7 +143,6 @@ func (r *registry) AddUbuntu20_04() {
 }
 
 func (r *registry) AddUbuntu22_04() {
-
 	// BYOH Bundle Repository. Associate bundle with installer
 	linuxDistro := Ubuntu22_04_LinuxDistro
 	r.AddBundleInstaller(linuxDistro, "v1.29.*")

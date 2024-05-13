@@ -48,25 +48,25 @@ func (r *BootstrapKubeconfig) ValidateCreate() (admission.Warnings, error) {
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *BootstrapKubeconfig) ValidateUpdate(old runtime.Object) error {
+func (r *BootstrapKubeconfig) ValidateUpdate(old runtime.Object) (admission.Warnings, error) {
 	bootstrapkubeconfiglog.Info("validate update", "name", r.Name)
 
 	if err := r.validateAPIServer(); err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := r.validateCAData(); err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return nil, nil
 }
 
 // ValidateDelete implements webhook.Validator so a webhook will be registered for the type
-func (r *BootstrapKubeconfig) ValidateDelete() error {
+func (r *BootstrapKubeconfig) ValidateDelete() (admission.Warnings, error) {
 	bootstrapkubeconfiglog.Info("validate delete", "name", r.Name)
 
-	return nil
+	return nill, nil
 }
 
 func (r *BootstrapKubeconfig) validateAPIServer() error {

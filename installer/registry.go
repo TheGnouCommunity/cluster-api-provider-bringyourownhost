@@ -8,6 +8,11 @@ import (
 	"regexp"
 )
 
+const (
+	Ubuntu20_04_LinuxDistro = "Ubuntu_20.04.1_x86-64"
+	Ubuntu22_04_LinuxDistro = "Ubuntu_22.04_x86-64"
+)
+
 type osk8sInstaller interface{}
 type k8sInstallerMap map[string]osk8sInstaller
 type osk8sInstallerMap map[string]k8sInstallerMap
@@ -120,7 +125,7 @@ func GetSupportedRegistry() registry {
 func (r *registry) AddUbuntu20_04() {
 
 	// BYOH Bundle Repository. Associate bundle with installer
-	linuxDistro := "Ubuntu_20.04.1_x86-64"
+	linuxDistro := Ubuntu20_04_LinuxDistro
 	r.AddBundleInstaller(linuxDistro, "v1.24.*")
 	r.AddBundleInstaller(linuxDistro, "v1.25.*")
 	r.AddBundleInstaller(linuxDistro, "v1.26.*")
@@ -141,7 +146,7 @@ func (r *registry) AddUbuntu20_04() {
 func (r *registry) AddUbuntu22_04() {
 
 	// BYOH Bundle Repository. Associate bundle with installer
-	linuxDistro := "Ubuntu_22.04_x86-64"
+	linuxDistro := Ubuntu22_04_LinuxDistro
 	r.AddBundleInstaller(linuxDistro, "v1.29.*")
 
 	/*

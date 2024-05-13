@@ -90,7 +90,7 @@ if ! command -v imgpkg >>/dev/null; then
 fi
 
 echo "downloading bundle"
-mkdir -p $c
+mkdir -p $BUNDLE_PATH
 imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH`
 
 	DoUbuntuK8S = `

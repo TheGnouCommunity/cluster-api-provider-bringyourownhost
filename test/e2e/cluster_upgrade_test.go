@@ -105,6 +105,7 @@ var _ = Describe("Cluster upgrade test [K8s-upgrade]", func() {
 		By("creating a workload cluster with one control plane node and one worker node")
 
 		setControlPlaneIP(context.Background(), dockerClient)
+		os.Setenv("BUNDLE_LOOKUP_BASE_REGISTRY", "docker.io/thegnoucommunity/cluster-api-byoh-bundle")
 		clusterctl.ApplyClusterTemplateAndWait(ctx, clusterctl.ApplyClusterTemplateAndWaitInput{
 			ClusterProxy: bootstrapClusterProxy,
 			ConfigCluster: clusterctl.ConfigClusterInput{

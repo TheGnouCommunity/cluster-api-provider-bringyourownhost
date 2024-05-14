@@ -137,7 +137,7 @@ $ cat /etc/hosts
 ```
 
 If you are trying this on your own hosts, then for each host
-1. Download the [byoh-hostagent-linux-amd64](https://github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/releases/download/v0.3.0/byoh-hostagent-linux-amd64)
+1. Download the [byoh-hostagent-linux-amd64](https://github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/releases/download/v0.5.9/byoh-hostagent-linux-amd64)
 2. Copy the bootstrap-kubeconfig file as `bootstrap-kubeconfig.conf`
 3. Start the agent 
 ```shell
@@ -184,6 +184,7 @@ kubectl get byohosts
 ```
 
 ## Create workload cluster
+
 Running the following command(on the host where you execute `clusterctl` in previous steps)
 
 **NOTE:** The `CONTROL_PLANE_ENDPOINT_IP` is an IP that must be an IP on the same subnet as the control plane machines, it should be also an IP that is not part of your DHCP range.
@@ -200,10 +201,13 @@ docker network inspect kind | jq -r 'map(.Containers[].IPv4Address) []'
 ```
 
 ### Create the workload cluster
+
 Generate the cluster.yaml for workload cluster
  - for vms as byohosts
     ```shell
-    CONTROL_PLANE_ENDPOINT_IP=10.10.10.10 clusterctl generate cluster byoh-cluster \
+    CONTROL_PLANE_ENDPOINT_IP=10.10.10.10 \
+    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundle \
+    clusterctl generate cluster byoh-cluster \
       --infrastructure byoh \
       --kubernetes-version v1.26.6 \
       --control-plane-machine-count 1 \
@@ -212,7 +216,9 @@ Generate the cluster.yaml for workload cluster
 
  - for docker hosts use the --flavor argument
     ```shell
-    CONTROL_PLANE_ENDPOINT_IP=10.10.10.10 clusterctl generate cluster byoh-cluster \
+    CONTROL_PLANE_ENDPOINT_IP=10.10.10.10 \
+    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundle \
+    clusterctl generate cluster byoh-cluster \
         --infrastructure byoh \
         --kubernetes-version v1.26.6 \
         --control-plane-machine-count 1 \

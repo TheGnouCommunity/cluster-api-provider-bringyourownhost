@@ -24,7 +24,7 @@ kind: ByoCluster
 metadata:
   name: ${CLUSTER_NAME}
 spec:
-  bundleLookupBaseRegistry: docker.io/thegnoucommunity/cluster-api-byoh-bundle
+  bundleLookupBaseRegistry: ${BUNDLE_LOOKUP_BASE_REGISTRY}
   controlPlaneEndpoint:
     host: ${CONTROL_PLANE_ENDPOINT_IP}
     port: 6443
@@ -145,5 +145,5 @@ metadata:
 spec:
   template:
     spec:
-      bundleRepo: docker.io/thegnoucommunity/cluster-api-byoh-bundle
+      bundleRepo: ${BUNDLE_LOOKUP_BASE_REGISTRY}
       bundleType: k8s

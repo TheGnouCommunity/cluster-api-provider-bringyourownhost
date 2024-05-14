@@ -74,8 +74,6 @@ function isIPOccupied() {
     return 0
 }
 
-
-
 function num2IP() {
     local num=$1
     a=$((num>>24))
@@ -478,7 +476,14 @@ function createWorkloadCluster() {
     # Find a available IP for control plane endpoint
     calcControlPlaneIP
 
-    CONTROL_PLANE_ENDPOINT_IP=${controlPlaneEndPointIp} clusterctl generate cluster ${workerClusterName} --infrastructure byoh --kubernetes-version ${kubernetesVersion} --control-plane-machine-count ${controlPlaneCount}  --worker-machine-count ${workerCount} --flavor docker > "${clusterYamlFile}"
+    CONTROL_PLANE_ENDPOINT_IP=${controlPlaneEndPointIp} \
+    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundle \
+    clusterctl generate cluster ${workerClusterName} \
+        --infrastructure byoh \
+        --kubernetes-version ${kubernetesVersion} \
+        --control-plane-machine-count ${controlPlaneCount} \
+        --worker-machine-count ${workerCount} \
+        --flavor docker > "${clusterYamlFile}"
     if [ $? -ne 0 ]; then
         echo "Generate ${clusterYamlFile} failed, exiting..."
         exit 1

@@ -52,7 +52,7 @@ spec:
       schema:
         openAPIV3Schema:
           type: string
-          default: "docker.io/thegnoucommunity/cluster-api-byoh-bundles"
+          default: "docker.io/thegnoucommunity/cluster-api-byoh-bundle"
     - name: controlPlaneIpAddr
       required: true
       schema:

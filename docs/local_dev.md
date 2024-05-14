@@ -222,7 +222,7 @@ The current list of supported tuples of OS, kubernetes Version, BYOH Bundle Name
 An example output looks like:
 
 The corresponding bundles (particular to a patch version) should be pushed to the OCI registry of choice
-By default, BYOH uses docker.io/thegnoucommunity/cluster-api-byoh-bundles
+By default, BYOH uses docker.io/thegnoucommunity/cluster-api-byoh-bundle
 
 Note: It may happen that a specific patch version of a k8s minor release is not available in the OCI registry
 

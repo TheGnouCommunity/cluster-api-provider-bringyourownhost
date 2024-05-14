@@ -137,7 +137,7 @@ $ cat /etc/hosts
 ```
 
 If you are trying this on your own hosts, then for each host
-1. Download the [byoh-hostagent-linux-amd64](https://github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/releases/download/v0.3.0/byoh-hostagent-linux-amd64)
+1. Download the [byoh-hostagent-linux-amd64](https://github.com/thegnoucommunity/cluster-api-provider-bringyourownhost/releases/download/v0.5.9/byoh-hostagent-linux-amd64)
 2. Copy the bootstrap-kubeconfig file as `bootstrap-kubeconfig.conf`
 3. Start the agent 
 ```shell
@@ -206,7 +206,7 @@ Generate the cluster.yaml for workload cluster
  - for vms as byohosts
     ```shell
     CONTROL_PLANE_ENDPOINT_IP=10.10.10.10 \
-    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundles \
+    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundle \
     clusterctl generate cluster byoh-cluster \
       --infrastructure byoh \
       --kubernetes-version v1.26.6 \
@@ -217,7 +217,7 @@ Generate the cluster.yaml for workload cluster
  - for docker hosts use the --flavor argument
     ```shell
     CONTROL_PLANE_ENDPOINT_IP=10.10.10.10 \
-    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundles \
+    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundle \
     clusterctl generate cluster byoh-cluster \
         --infrastructure byoh \
         --kubernetes-version v1.26.6 \

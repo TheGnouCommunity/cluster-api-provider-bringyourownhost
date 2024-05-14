@@ -22,7 +22,7 @@ type ByoClusterSpec struct {
 	ControlPlaneEndpoint APIEndpoint `json:"controlPlaneEndpoint"`
 
 	// BundleLookupBaseRegistry is the base Registry URL that is used for pulling byoh bundle images,
-	// if not set, the default will be set to docker.io/thegnoucommunity/cluster-api-byoh-bundles
+	// if not set, the default will be set to docker.io/thegnoucommunity/cluster-api-byoh-bundle
 	// +optional
 	BundleLookupBaseRegistry string `json:"bundleLookupBaseRegistry,omitempty"`
 }

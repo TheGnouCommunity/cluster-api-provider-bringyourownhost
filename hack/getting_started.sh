@@ -477,7 +477,7 @@ function createWorkloadCluster() {
     calcControlPlaneIP
 
     CONTROL_PLANE_ENDPOINT_IP=${controlPlaneEndPointIp} \
-    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundles \
+    BUNDLE_LOOKUP_BASE_REGISTRY=docker.io/thegnoucommunity/cluster-api-byoh-bundle \
     clusterctl generate cluster ${workerClusterName} \
         --infrastructure byoh \
         --kubernetes-version ${kubernetesVersion} \

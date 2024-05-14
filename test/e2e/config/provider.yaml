@@ -104,6 +104,7 @@ variables:
   # NOTE: INIT_WITH_BINARY is used only by the clusterctl upgrade test to initialize the management cluster to be upgraded
   INIT_WITH_BINARY: "https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.4.4/clusterctl-{OS}-{ARCH}"
   BUNDLE_LOOKUP_TAG: "v1.26.6"
+  BUNDLE_LOOKUP_BASE_REGISTRY: "docker.io/thegnoucommunity/cluster-api-byoh-bundles"
   CONTROL_PLANE_ENDPOINT_IP: ""
   MANUAL_CSR_APPROVAL: "disable"
 

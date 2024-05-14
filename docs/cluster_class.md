@@ -130,7 +130,7 @@ spec:
       replicas: 1
     variables:
       - name: bundleLookupBaseRegistry
-        value: "docker.io/thegnoucommunity/cluster-api-byoh-bundles"
+        value: ${BUNDLE_LOOKUP_BASE_REGISTRY}
       - name: controlPlaneIpAddr
         value: ${CONTROL_PLANE_ENDPOINT_IP}
       - name: kubeVipPodManifest
@@ -199,6 +199,7 @@ To create a cluster using clusterctl with managed topology, use `topology` flavo
 ```
 CLUSTER_NAME
 CONTROL_PLANE_ENDPOINT_IP
+BUNDLE_LOOKUP_BASE_REGISTRY
 ```
 Also set feature flag for ClusterClass:
 

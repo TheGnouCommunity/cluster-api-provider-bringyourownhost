@@ -116,6 +116,7 @@ var _ = Describe("When BYOH joins existing cluster [Installer]", func() {
 		}()
 
 		setControlPlaneIP(context.Background(), dockerClient)
+		os.Setenv("BUNDLE_LOOKUP_BASE_REGISTRY", "docker.io/thegnoucommunity/cluster-api-byoh-bundles")
 		clusterctl.ApplyClusterTemplateAndWait(ctx, clusterctl.ApplyClusterTemplateAndWaitInput{
 			ClusterProxy: bootstrapClusterProxy,
 			ConfigCluster: clusterctl.ConfigClusterInput{

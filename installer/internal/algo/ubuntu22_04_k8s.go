@@ -91,16 +91,18 @@ fi
 
 echo "downloading bundle"
 mkdir -p $BUNDLE_PATH
-imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH
-tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH/scripts.tar"
-chmod +x $BUNDLE_PATH/*.sh
+imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH-scripts
+tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH-scripts/scripts.tar"
+chmod +x $BUNDLE_PATH-scripts/*.sh
 `
 
 	DoUbuntuK8S = `
 imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
-BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH/install.sh`
+BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/install.sh
+rm -rf $BUNDLE_PATH-scripts`
 
 	UndoUbuntuK8S = `
-BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH/uninstall.sh
-rm -rf $BUNDLE_PATH`
+BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/uninstall.sh
+rm -rf $BUNDLE_PATH
+rm -rf $BUNDLE_PATH-scripts`
 )

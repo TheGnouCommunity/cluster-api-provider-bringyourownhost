@@ -17,7 +17,7 @@ tar -C / -xvf "$BUNDLE_PATH/conf.tar"
 sysctl --system
 
 ## installing deb packages
-for pkg in containerd.io kubectl kubelet kubeadm; do
+for pkg in containerd.io kubectl kubernetes-cni kubelet cri-tools kubeadm; do
 	dpkg --install "$BUNDLE_PATH/$pkg.deb"
     apt-mark hold $pkg
 done

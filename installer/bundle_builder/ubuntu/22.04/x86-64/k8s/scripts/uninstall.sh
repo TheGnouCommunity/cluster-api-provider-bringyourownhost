@@ -5,7 +5,7 @@ systemctl disable containerd
 systemctl daemon-reload
 
 ## removing deb packages
-for pkg in kubeadm kubelet kubectl containerd.io; do
+for pkg in kubeadm cri-tools kubelet kubernetes-cni kubectl containerd.io; do
 	dpkg --purge $pkg
 done
 

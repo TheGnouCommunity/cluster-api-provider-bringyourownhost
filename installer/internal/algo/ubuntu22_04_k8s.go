@@ -36,11 +36,11 @@ func NewUbuntuK8SInstaller(ctx context.Context, osbundle, arch, bundleAddrs stri
 		return tpl.String(), nil
 	}
 
-	install, err := parseFn(DoCommon + DoUbuntuK8S)
+	install, err := parseFn(DoPre + DoUbuntuK8S + DoPost)
 	if err != nil {
 		return nil, err
 	}
-	uninstall, err := parseFn(DoCommon + UndoUbuntuK8S)
+	uninstall, err := parseFn(DoPre + UndoUbuntuK8S + DoPost)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (s *UbuntuK8SInstaller) Uninstall() string {
 
 // contains the installation and uninstallation steps for the supported os and k8s
 var (
-	DoCommon = `
+	DoPre = `
 set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
@@ -94,16 +94,16 @@ mkdir -p $BUNDLE_PATH
 imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH-scripts
 tar -C $BUNDLE_PATH-scripts/ -xvf "$BUNDLE_PATH-scripts/scripts.tar"
 chmod +x $BUNDLE_PATH-scripts/*.sh
-`
+imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
+tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH/bundle.tar"`
 
 	DoUbuntuK8S = `
-imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
-tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH/bundle.tar"
-BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/install.sh
-rm -rf $BUNDLE_PATH
-rm -rf $BUNDLE_PATH-scripts`
+BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/install.sh`
 
 	UndoUbuntuK8S = `
-BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/uninstall.sh
+BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/uninstall.sh`
+
+	DoPost = `
+rm -rf $BUNDLE_PATH
 rm -rf $BUNDLE_PATH-scripts`
 )

@@ -20,7 +20,7 @@ spec:
       replicas: ${CONTROL_PLANE_MACHINE_COUNT}
     variables:
       - name: bundleLookupBaseRegistry
-        value: "docker.io/thegnoucommunity/cluster-api-byoh-bundle"
+        value: ${BUNDLE_LOOKUP_BASE_REGISTRY}
       - name: controlPlaneIpAddr
         value: ${CONTROL_PLANE_ENDPOINT_IP}
       - name: kubeVipPodManifest

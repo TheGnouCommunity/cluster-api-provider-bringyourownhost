@@ -98,11 +98,12 @@ chmod +x $BUNDLE_PATH-scripts/*.sh
 
 	DoUbuntuK8S = `
 imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
+tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH/bundle.tar"
 BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/install.sh
+rm -rf $BUNDLE_PATH
 rm -rf $BUNDLE_PATH-scripts`
 
 	UndoUbuntuK8S = `
 BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/uninstall.sh
-rm -rf $BUNDLE_PATH
 rm -rf $BUNDLE_PATH-scripts`
 )

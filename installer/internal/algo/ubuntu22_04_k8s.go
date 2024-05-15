@@ -92,7 +92,7 @@ fi
 echo "downloading bundle"
 mkdir -p $BUNDLE_PATH
 imgpkg pull -i $BUNDLE_ADDR-scripts -o $BUNDLE_PATH-scripts
-tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH-scripts/scripts.tar"
+tar -C $BUNDLE_PATH-scripts/ -xvf "$BUNDLE_PATH-scripts/scripts.tar"
 chmod +x $BUNDLE_PATH-scripts/*.sh
 `
 

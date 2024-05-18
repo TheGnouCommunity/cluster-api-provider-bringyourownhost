@@ -31,3 +31,6 @@ sed -i 's/    sandbox_image = "registry.k8s.io\/pause:3.6"/    sandbox_image = "
 systemctl daemon-reload
 systemctl enable containerd
 systemctl start containerd
+
+## enable the kubelet service before running kubeadm
+systemctl enable --now kubelet

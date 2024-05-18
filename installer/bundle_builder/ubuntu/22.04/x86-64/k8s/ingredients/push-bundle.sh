@@ -7,6 +7,7 @@ set -e
 
 echo Pushing bundles "$*"
 
-imgpkg push -f . -i $@
+echo "imgpkg push -f . -i $@ --registry-anon"
+imgpkg push -f . -i $@ --registry-anon
 
 echo Done

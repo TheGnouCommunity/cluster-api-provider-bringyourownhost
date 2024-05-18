@@ -10,7 +10,8 @@ SCRIPTS_PATH=$3
 
 set -e
 
-rm -rf $INGREDIENTS_PATH/$4.tar
+rm -f $INGREDIENTS_PATH/bundle.tar
+rm -f $INGREDIENTS_PATH/scripts.tar
 
 echo Building bundle...
 
@@ -19,13 +20,13 @@ ls -l $INGREDIENTS_PATH
 
 echo Strip version to well-known names
 # Mandatory
-cp $INGREDIENTS_PATH/*containerd.io*.deb containerd.io.deb
+cp $INGREDIENTS_PATH/*containerd.io*.deb ./containerd.io.deb
 cp $INGREDIENTS_PATH/*kubeadm*.deb ./kubeadm.deb
 cp $INGREDIENTS_PATH/*kubelet*.deb ./kubelet.deb
 cp $INGREDIENTS_PATH/*kubectl*.deb ./kubectl.deb
 # Optional
-cp  $INGREDIENTS_PATH/*cri-tools*.deb cri-tools.deb > /dev/null | true
-cp  $INGREDIENTS_PATH/*kubernetes-cni*.deb kubernetes-cni.deb > /dev/null | true
+cp  $INGREDIENTS_PATH/*cri-tools*.deb ./cri-tools.deb > /dev/null | true
+cp  $INGREDIENTS_PATH/*kubernetes-cni*.deb ./kubernetes-cni.deb > /dev/null | true
 
 echo Configuration $CONFIG_PATH
 ls -l $CONFIG_PATH

@@ -170,14 +170,14 @@ spec:
             path: /etc/kubernetes/manifests/kube-vip.yaml
         initConfiguration:
           nodeRegistration:
-            criSocket: /var/run/containerd/containerd.sock
+            criSocket: unix:///var/run/containerd/containerd.sock
             ignorePreflightErrors:
             - Swap
             - DirAvailable--etc-kubernetes-manifests
             - FileAvailable--etc-kubernetes-kubelet.conf
         joinConfiguration:
           nodeRegistration:
-            criSocket: /var/run/containerd/containerd.sock
+            criSocket: unix:///var/run/containerd/containerd.sock
             ignorePreflightErrors:
             - Swap
             - DirAvailable--etc-kubernetes-manifests

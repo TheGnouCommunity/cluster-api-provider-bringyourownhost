@@ -22,6 +22,11 @@ for pkg in containerd.io kubectl kubernetes-cni kubelet cri-tools kubeadm; do
     apt-mark hold $pkg
 done
 
+## configuring containerd
+containerd config default | tee /etc/containerd/config.toml
+sed -i 's/            SystemdCgroup = false/            SystemdCgroup = true/' /etc/containerd/config.toml
+sed -i 's/    sandbox_image = "registry.k8s.io\/pause:3.6"/    sandbox_image = "registry.k8s.io\/pause:3.9"/' /etc/containerd/config.toml
+
 ## starting containerd service
 systemctl daemon-reload
 systemctl enable containerd

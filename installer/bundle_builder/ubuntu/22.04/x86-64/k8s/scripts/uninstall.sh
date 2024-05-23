@@ -10,8 +10,11 @@ apt-get autoremove -y
 systemctl stop containerd
 systemctl disable containerd
 systemctl daemon-reload
-apt-get remove -y containerd.io
-rm -f /etc/containerd/config.toml
+
+rm -f /etc/systemd/system/containerd.service
+rm -rf /opt/cni
+rm -f /usr/local/sbin/runc
+rm -rf /etc/containerd
 
 ## removing os configuration
 tar tf "$BUNDLE_PATH/conf.tar" | xargs -n 1 echo '/' | sed 's/ //g' | grep -e "[^/]$" | xargs rm -f

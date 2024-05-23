@@ -43,7 +43,7 @@ systemctl start containerd
 K8S_VERSION_NUMBER=${K8S_VERSION#v}
 K8S_SHORT_VERSION=${K8S_VERSION%.*}
 apt-get install -y apt-transport-https
-curl -fsSL "https://pkgs.k8s.io/core:/stable:/$K8S_SHORT_VERSION/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+curl -fsSL "https://pkgs.k8s.io/core:/stable:/$K8S_SHORT_VERSION/deb/Release.key" | gpg --yes --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$K8S_SHORT_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
 apt-get update
 apt-get install -y kubelet=$K8S_VERSION_NUMBER-\* kubeadm=$K8S_VERSION_NUMBER-\* kubectl=$K8S_VERSION_NUMBER-\*

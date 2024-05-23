@@ -4,6 +4,7 @@ echo "Uninstalling $K8S_VERSION from $BUNDLE_PATH..."
 ## removing Kubernetes
 apt-mark unhold kubelet kubeadm kubectl
 apt-get remove -y kubelet kubeadm kubectl
+apt-get autoremove -y
 
 ## disabling and removing containerd
 systemctl stop containerd

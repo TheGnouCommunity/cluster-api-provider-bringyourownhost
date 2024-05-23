@@ -68,7 +68,7 @@ set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
 BUNDLE_ADDR={{.BundleAddrs}}
-K8S_VERSION={{.k8sVersion}}
+K8S_VERSION={{.K8sVersion}}
 IMGPKG_VERSION={{.ImgpkgVersion}}
 ARCH={{.Arch}}
 BUNDLE_PATH=$BUNDLE_DOWNLOAD_PATH/${BUNDLE_ADDR//\:/-}

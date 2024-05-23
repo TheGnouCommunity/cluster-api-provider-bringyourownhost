@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Uninstalling $K8S_VERSION from $BUNDLE_PATH..."
 
 ## removing Kubernetes
 apt-mark unhold kubelet kubeadm kubectl

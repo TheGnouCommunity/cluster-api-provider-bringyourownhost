@@ -40,12 +40,13 @@ systemctl enable containerd
 systemctl start containerd
 
 ## installing Kubernetes
+K8S_VERSION_NUMBER=${K8S_VERSION#v}
 K8S_SHORT_VERSION=${K8S_VERSION%.*}
 apt-get install -y apt-transport-https
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$K8S_SHORT_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL "https://pkgs.k8s.io/core:/stable:/$K8S_SHORT_VERSION/deb/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$K8S_SHORT_VERSION/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
 apt-get update
-apt-get install -y kubelet=$K8S_VERSION-\* kubeadm=$K8S_VERSION-\* kubectl=$K8S_VERSION-\*
+apt-get install -y kubelet=$K8S_VERSION_NUMBER-\* kubeadm=$K8S_VERSION_NUMBER-\* kubectl=$K8S_VERSION_NUMBER-\*
 apt-mark hold kubelet kubeadm kubectl
 
 ## enable the kubelet service before running kubeadm

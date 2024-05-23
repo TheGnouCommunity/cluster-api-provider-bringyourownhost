@@ -71,5 +71,5 @@ func NewInstaller(ctx context.Context, osDist, arch, k8sVersion string, download
 		return algo.NewUbuntu20_04K8SInstaller(ctx, arch, addrs)
 	}
 
-	return algo.NewUbuntuK8SInstaller(ctx, osbundle, arch, addrs)
+	return algo.NewUbuntuK8SInstaller(ctx, osbundle, arch, addrs, k8sVersion)
 }

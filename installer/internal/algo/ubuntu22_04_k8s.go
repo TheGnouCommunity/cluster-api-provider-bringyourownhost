@@ -17,7 +17,7 @@ type UbuntuK8SInstaller struct {
 }
 
 // NewUbuntuK8SInstaller will return new UbuntuK8SInstaller instance
-func NewUbuntuK8SInstaller(ctx context.Context, osbundle, arch, bundleAddrs string) (*UbuntuK8SInstaller, error) {
+func NewUbuntuK8SInstaller(ctx context.Context, osbundle, arch, bundleAddrs, k8sVersion string) (*UbuntuK8SInstaller, error) {
 	parseFn := func(script string) (string, error) {
 		parser, err := template.New("parser").Parse(script)
 		if err != nil {
@@ -26,6 +26,7 @@ func NewUbuntuK8SInstaller(ctx context.Context, osbundle, arch, bundleAddrs stri
 		var tpl bytes.Buffer
 		if err = parser.Execute(&tpl, map[string]string{
 			"BundleAddrs": bundleAddrs,
+			"K8sVersion":  k8sVersion,
 			"Arch":        arch,
 			// ImgpkgVersion defines the imgpkg version that will be installed on host if imgpkg is not already installed
 			"ImgpkgVersion":      "v0.42.1",
@@ -67,6 +68,7 @@ set -euox pipefail
 
 BUNDLE_DOWNLOAD_PATH={{.BundleDownloadPath}}
 BUNDLE_ADDR={{.BundleAddrs}}
+K8S_VERSION={{.k8sVersion}}
 IMGPKG_VERSION={{.ImgpkgVersion}}
 ARCH={{.Arch}}
 BUNDLE_PATH=$BUNDLE_DOWNLOAD_PATH/${BUNDLE_ADDR//\:/-}
@@ -98,10 +100,10 @@ imgpkg pull -i $BUNDLE_ADDR -o $BUNDLE_PATH
 tar -C $BUNDLE_PATH/ -xvf "$BUNDLE_PATH/bundle.tar"`
 
 	DoUbuntuK8S = `
-BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/install.sh`
+K8S_VERSION=$K8S_VERSION BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/install.sh`
 
 	UndoUbuntuK8S = `
-BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/uninstall.sh`
+K8S_VERSION=$K8S_VERSION BUNDLE_PATH=$BUNDLE_PATH $BUNDLE_PATH-scripts/uninstall.sh`
 
 	DoPost = `
 rm -rf $BUNDLE_PATH

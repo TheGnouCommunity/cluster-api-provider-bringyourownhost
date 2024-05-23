@@ -1,20 +1,20 @@
 #!/bin/bash
-## disabling containerd service
+
+## removing Kubernetes
+apt-mark unhold kubelet kubeadm kubectl
+apt-get remove -y kubelet kubeadm kubectl
+
+## disabling and removing containerd
 systemctl stop containerd
 systemctl disable containerd
 systemctl daemon-reload
-
+apt-get remove -y containerd.io
 rm -f /etc/containerd/config.toml
-
-## removing deb packages
-for pkg in kubeadm cri-tools kubelet kubernetes-cni kubectl containerd.io; do
-	dpkg --purge $pkg
-done
 
 ## removing os configuration
 tar tf "$BUNDLE_PATH/conf.tar" | xargs -n 1 echo '/' | sed 's/ //g' | grep -e "[^/]$" | xargs rm -f
 
-## remove kernal modules
+## unloading kernal modules
 modprobe -rq overlay
 modprobe -r br_netfilter
 
